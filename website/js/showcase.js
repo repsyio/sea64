@@ -81,7 +81,7 @@ async function run() {
   hintEl.textContent = showcase.hint ?? '';
   showControls(showcase.controls ?? []);
   fileEl.textContent = `${showcase.id}.c64s`;
-  document.title = `${showcase.title} — f6502`;
+  document.title = `${showcase.title} — sea64`;
 
   const response = await fetch(`showcases/${showcase.id}.c64s`);
   if (!response.ok) throw new Error(`could not load the source (${response.status})`);

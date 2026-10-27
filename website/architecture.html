@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Architecture — f6502</title>
+  <title>Architecture — sea64</title>
   <meta name="description" content="How we built a cycle-accurate Commodore 64 emulator in TypeScript — from the 6502 CPU to VIC-II graphics and SID audio.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&family=VT323&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/brand/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/brand/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
+  <meta name="theme-color" content="#080918">
   <style>
     /* memory map mini diagram */
     .memmap {
@@ -124,7 +128,7 @@
 
 <!-- ── Navigation ──────────────────────────────────────────────── -->
 <nav class="nav" role="navigation" aria-label="Main">
-  <a class="nav-logo" href="index.html">f6502<span>.</span></a>
+  <a class="nav-logo" href="index.html"><img class="brand-mark" src="img/brand/sea64-mark.svg" alt="" width="32" height="26">sea64<span>.</span></a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="architecture.html" aria-current="page">Architecture</a></li>
@@ -133,7 +137,7 @@
     <li><a href="playground.html">Playground</a></li>
     <li><a href="showcases.html">Showcases</a></li>
   </ul>
-  <a class="nav-gh" href="https://github.com/firatkucuk/f6502" target="_blank" rel="noopener">
+  <a class="nav-gh" href="https://github.com/repsyio/sea64" target="_blank" rel="noopener">
     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
       <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
     </svg>
@@ -206,7 +210,7 @@
       <div class="tl-entry">
         <div class="tl-year">1987</div>
         <h3>SID revision</h3>
-        <p>MOS 8580 SID revision introduced. Different filter characteristics than the 6581; both revisions are in service for years. f6502 emulates both.</p>
+        <p>MOS 8580 SID revision introduced. Different filter characteristics than the 6581; both revisions are in service for years. sea64 emulates both.</p>
       </div>
       <div class="tl-entry">
         <div class="tl-year">1994</div>
@@ -444,7 +448,7 @@
       account for badlines, or graphics will glitch.
     </p>
     <p>
-      f6502 implements cycle-exact BA stalling. The emulated CPU checks BA before every
+      sea64 implements cycle-exact BA stalling. The emulated CPU checks BA before every
       bus read, and if BA is low (VIC-II is stealing the bus), it idles rather than
       proceeding. This is how demo programmers pull off effects that seem impossible on
       a 1 MHz CPU.
@@ -516,7 +520,7 @@
       volume from zero to maximum; <strong>D</strong>ecay falls to the <strong>S</strong>ustain
       level, which holds as long as the gate bit is set; <strong>R</strong>elease falls
       back to zero when the gate is cleared. The 6581 has a well-documented bug where the
-      envelope counter can overshoot on fast release — f6502 replicates it.
+      envelope counter can overshoot on fast release — sea64 replicates it.
     </p>
 
     <h3>6581 vs 8580</h3>
@@ -524,12 +528,12 @@
       The original 6581 runs on 12V and uses analog circuits that filter with a notoriously
       non-linear curve — the basis of much SID "warmth". The revised 8580 (1987) runs on 9V,
       has a cleaner filter response, and a slightly different noise waveform. Many
-      compositions sound noticeably different on each revision. f6502 lets you select the
+      compositions sound noticeably different on each revision. sea64 lets you select the
       model with <code>audio: &#123; model: '6581' &#125;</code>.
     </p>
 
     <div class="infobox yellow reveal">
-      <strong>AudioWorklet:</strong> f6502 outputs SID audio via the Web Audio API's
+      <strong>AudioWorklet:</strong> sea64 outputs SID audio via the Web Audio API's
       AudioWorklet. The SID runs in the main thread, samples are buffered, and the
       worklet drains the buffer in the audio processing thread. This avoids the crackling
       that comes from ScriptProcessor and tolerates frame timing jitter.
@@ -608,7 +612,7 @@
     <h2 id="emulator-design">Our Emulator Design</h2>
 
     <p>
-      f6502 is a clean-room implementation — no code from any prior emulator. Every
+      sea64 is a clean-room implementation — no code from any prior emulator. Every
       component was designed from hardware datasheets, the C64 programmer's reference,
       and extensive cross-checking against VICE output. The guiding principle: prefer
       correctness over performance, but make it fast enough to run in a browser at full
@@ -641,7 +645,7 @@
 
     <h3>Cycle accuracy</h3>
     <p>
-      The 6502 specifies a precise number of cycles for every instruction. f6502 counts
+      The 6502 specifies a precise number of cycles for every instruction. sea64 counts
       cycles as it executes each instruction and calls the VIC-II's <code>tick()</code>
       method once per CPU cycle. VIC-II maintains its own cycle counter to track which
       dot it is currently generating. This tight coupling is what makes raster effects
@@ -693,7 +697,7 @@
     </p>
     <p>
       The 6581 filter is particularly hard to emulate — it is a four-pole analog filter
-      with a non-linear resonance curve that varies between chips. f6502 uses a
+      with a non-linear resonance curve that varies between chips. sea64 uses a
       documented approximation of the 6581 filter based on measurements from real
       hardware.
     </p>
@@ -706,32 +710,32 @@
 
     <div class="pipeline reveal">
       <div class="pipe-step">
-        <div class="pipe-step-icon">📝</div>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
         <div class="pipe-step-name">Lexer</div>
         <div class="pipe-step-desc">Source → Tokens</div>
       </div>
       <div class="pipe-step">
-        <div class="pipe-step-icon">🌳</div>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M12 7v4M12 11H6v5M12 11h6v5"/></svg>
         <div class="pipe-step-name">Parser</div>
         <div class="pipe-step-desc">Tokens → AST</div>
       </div>
       <div class="pipe-step">
-        <div class="pipe-step-icon">✅</div>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg>
         <div class="pipe-step-name">Checker</div>
         <div class="pipe-step-desc">Types &amp; Annotations</div>
       </div>
       <div class="pipe-step">
-        <div class="pipe-step-icon">⚙️</div>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
         <div class="pipe-step-name">CodeGen</div>
         <div class="pipe-step-desc">AST → 6502 bytes</div>
       </div>
       <div class="pipe-step">
-        <div class="pipe-step-icon">🔗</div>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>
         <div class="pipe-step-name">Linker</div>
         <div class="pipe-step-desc">Resolve labels</div>
       </div>
       <div class="pipe-step">
-        <div class="pipe-step-icon">💾</div>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></svg>
         <div class="pipe-step-name">PRG Writer</div>
         <div class="pipe-step-desc">Binary output</div>
       </div>
@@ -748,7 +752,7 @@
     <h2 id="testing">Testing &amp; Verification</h2>
 
     <p>
-      Emulator correctness is hard to guarantee with unit tests alone. f6502 uses three
+      Emulator correctness is hard to guarantee with unit tests alone. sea64 uses three
       layers of testing:
     </p>
 
@@ -764,7 +768,7 @@
       The <a href="https://github.com/Klaus2m5/6502_65C02_functional_tests" target="_blank" rel="noopener">Klaus Dormann functional test</a>
       is the gold standard for 6502 correctness. It is a 64KB program that exercises
       every legal opcode and addressing mode, trapping the CPU in an infinite loop if
-      any test fails. f6502 runs the full test to completion.
+      any test fails. sea64 runs the full test to completion.
     </p>
 
     <h3>VICE conformance tests</h3>
@@ -776,8 +780,8 @@
     </p>
 
     <div class="infobox accent reveal">
-      <strong>Open source:</strong> f6502 is published under the
-      <a href="https://github.com/firatkucuk/f6502/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0 licence</a>.
+      <strong>Open source:</strong> sea64 is published under the
+      <a href="https://github.com/repsyio/sea64/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0 licence</a>.
       ROMs are not included — download the free
       <a href="https://github.com/MEGA65/open-roms/releases" target="_blank" rel="noopener">OpenROMs</a>
       or use your own. Run <code>npm run fetch-test-data</code> to download everything needed for
@@ -785,7 +789,7 @@
     </div>
 
     <div style="margin: 3rem 0; display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="usage.html">Start using f6502 →</a>
+      <a class="btn btn-primary" href="usage.html">Start using sea64 →</a>
       <a class="btn btn-outline" href="c64script.html">Explore C64Script →</a>
     </div>
 
@@ -794,7 +798,7 @@
   <!-- ── Footer ────────────────────────────────────────────────── -->
   <footer>
     <div>
-      <div class="footer-brand">f6502</div>
+      <div class="footer-brand"><img class="brand-mark" src="img/brand/sea64-mark.svg" alt="" width="32" height="26">sea64</div>
       <p class="footer-desc">A cycle-accurate Commodore 64 emulator in TypeScript. Apache-2.0.</p>
     </div>
     <nav class="footer-links" aria-label="Footer">
@@ -802,7 +806,7 @@
       <a href="usage.html">Usage</a>
       <a href="c64script.html">C64Script</a>
       <a href="showcases.html">Showcases</a>
-      <a href="https://github.com/firatkucuk/f6502" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/repsyio/sea64" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </footer>
 </div>

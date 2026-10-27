@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>C64Script — f6502</title>
+  <title>C64Script — sea64</title>
   <meta name="description" content="C64Script: a TypeScript-inspired language that compiles directly to 6502 machine code for the Commodore 64. No assembly required.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&family=VT323&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/brand/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/brand/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
+  <meta name="theme-color" content="#080918">
   <style>
     .hero-badge {
       display: inline-flex;
@@ -48,7 +52,7 @@
 
 <!-- ── Navigation ──────────────────────────────────────────────── -->
 <nav class="nav" role="navigation" aria-label="Main">
-  <a class="nav-logo" href="index.html">f6502<span>.</span></a>
+  <a class="nav-logo" href="index.html"><img class="brand-mark" src="img/brand/sea64-mark.svg" alt="" width="32" height="26">sea64<span>.</span></a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="architecture.html">Architecture</a></li>
@@ -57,7 +61,7 @@
     <li><a href="playground.html">Playground</a></li>
     <li><a href="showcases.html">Showcases</a></li>
   </ul>
-  <a class="nav-gh" href="https://github.com/firatkucuk/f6502" target="_blank" rel="noopener">
+  <a class="nav-gh" href="https://github.com/repsyio/sea64" target="_blank" rel="noopener">
     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
     GitHub
   </a>
@@ -81,7 +85,7 @@
     <div class="hero-actions">
       <a class="btn btn-primary" href="playground.html">▶ Open the Playground</a>
       <a class="btn btn-outline" href="index.html#demo">Try in the Demo</a>
-      <a class="btn btn-outline" href="https://github.com/firatkucuk/f6502/tree/main/src/c64script" target="_blank" rel="noopener">View compiler source</a>
+      <a class="btn btn-outline" href="https://github.com/repsyio/sea64/tree/main/src/c64script" target="_blank" rel="noopener">View compiler source</a>
     </div>
   </section>
 
@@ -96,7 +100,7 @@
     </p>
 
     <div class="lang-feature reveal">
-      <span class="lang-feature-icon">🔤</span>
+      <svg class="lang-feature-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19 8 5l5 14M4.8 14h6.4M15 11.5a3 3 0 1 1 0 4.5V10M21 19v-8"/></svg>
       <div class="lang-feature-body">
         <h4>Familiar TypeScript-like syntax</h4>
         <p>Variable declarations, typed globals, if/else, loops, functions — the structure you already know, targeting 8-bit hardware from 1982.</p>
@@ -104,7 +108,7 @@
     </div>
 
     <div class="lang-feature reveal">
-      <span class="lang-feature-icon">⚡</span>
+      <svg class="lang-feature-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
       <div class="lang-feature-body">
         <h4>Zero-page annotation <code>@zp</code></h4>
         <p>Mark variables <code>@zp</code> to place them in zero page ($00–$FF). The 6502 can address these with a single byte instead of two, making every access faster and smaller. You get 246 bytes of zero-page space ($02–$F7).</p>
@@ -112,7 +116,7 @@
     </div>
 
     <div class="lang-feature reveal">
-      <span class="lang-feature-icon">🔌</span>
+      <svg class="lang-feature-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v5M15 2v5M6 7h12v4a6 6 0 0 1-12 0zM12 17v5"/></svg>
       <div class="lang-feature-body">
         <h4>Hardware register access <code>@addr</code></h4>
         <p>Pin any variable to a specific memory address. The built-in <code>VIC2.*</code>, <code>SID.*</code>, <code>CIA1.*</code> and <code>CIA2.*</code> fields use this — they are just fields bound to chip registers, not magic.</p>
@@ -120,7 +124,7 @@
     </div>
 
     <div class="lang-feature reveal">
-      <span class="lang-feature-icon">🎨</span>
+      <svg class="lang-feature-icon icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
       <div class="lang-feature-body">
         <h4>Color constants</h4>
         <p>All 16 C64 colors are built-in constants: <code>COLOR_BLACK</code>, <code>COLOR_WHITE</code>, <code>COLOR_RED</code>, <code>COLOR_CYAN</code>, <code>COLOR_PURPLE</code>, <code>COLOR_GREEN</code>, <code>COLOR_BLUE</code>, <code>COLOR_YELLOW</code>, <code>COLOR_ORANGE</code>, <code>COLOR_BROWN</code>, <code>COLOR_LIGHT_RED</code>, <code>COLOR_DARK_GREY</code>, <code>COLOR_MEDIUM_GREY</code>, <code>COLOR_LIGHT_GREEN</code>, <code>COLOR_LIGHT_BLUE</code>, <code>COLOR_LIGHT_GREY</code>. They fold to immediate values at compile time — no runtime cost.</p>
@@ -128,7 +132,7 @@
     </div>
 
     <div class="lang-feature reveal">
-      <span class="lang-feature-icon">🔁</span>
+      <svg class="lang-feature-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 0 1-4 4H4"/></svg>
       <div class="lang-feature-body">
         <h4>Loops and conditionals</h4>
         <p><code>while</code>, <code>for</code>, <code>loop</code> (infinite), <code>break</code>, <code>continue</code>. <code>if</code> / <code>else if</code> / <code>else</code> chains; a branch can skip a block of any size.</p>
@@ -136,7 +140,7 @@
     </div>
 
     <div class="lang-feature reveal">
-      <span class="lang-feature-icon">🧩</span>
+      <svg class="lang-feature-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/></svg>
       <div class="lang-feature-body">
         <h4>Functions</h4>
         <p>Define reusable <code>fn</code> blocks with <code>u8</code> parameters and a return type. Calls compile to <code>JSR</code>/<code>RTS</code>, or inline the body when marked <code>@inline</code>. Parameters live in fixed zero-page slots, so there is no recursion.</p>
@@ -1092,32 +1096,32 @@
 
     <div class="pipeline reveal">
       <div class="pipe-step">
-        <span class="pipe-step-icon">📖</span>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
         <span class="pipe-step-name">Lexer</span>
         <span class="pipe-step-desc">source → tokens</span>
       </div>
       <div class="pipe-step">
-        <span class="pipe-step-icon">🌳</span>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M12 7v4M12 11H6v5M12 11h6v5"/></svg>
         <span class="pipe-step-name">Parser</span>
         <span class="pipe-step-desc">tokens → AST</span>
       </div>
       <div class="pipe-step">
-        <span class="pipe-step-icon">🔍</span>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg>
         <span class="pipe-step-name">Checker</span>
         <span class="pipe-step-desc">validates &amp; folds</span>
       </div>
       <div class="pipe-step">
-        <span class="pipe-step-icon">⚙️</span>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
         <span class="pipe-step-name">CodeGen</span>
         <span class="pipe-step-desc">emits opcodes</span>
       </div>
       <div class="pipe-step">
-        <span class="pipe-step-icon">🔗</span>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>
         <span class="pipe-step-name">Linker</span>
         <span class="pipe-step-desc">resolves fixups</span>
       </div>
       <div class="pipe-step">
-        <span class="pipe-step-icon">💾</span>
+        <svg class="pipe-step-icon icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></svg>
         <span class="pipe-step-name">PRG Writer</span>
         <span class="pipe-step-desc">→ Uint8Array</span>
       </div>
@@ -1321,14 +1325,14 @@
       <strong>Contributions welcome.</strong>
       The compiler is &lt;1,500 lines of TypeScript with a comprehensive test suite.
       If you want to add pointers, multiplication, or more hardware registers,
-      <a href="https://github.com/firatkucuk/f6502" target="_blank" rel="noopener">the source is on GitHub</a>.
+      <a href="https://github.com/repsyio/sea64" target="_blank" rel="noopener">the source is on GitHub</a>.
     </div>
   </section>
 
   <!-- ── Footer ────────────────────────────────────────────────── -->
   <footer>
     <div>
-      <div class="footer-brand">f6502</div>
+      <div class="footer-brand"><img class="brand-mark" src="img/brand/sea64-mark.svg" alt="" width="32" height="26">sea64</div>
       <p class="footer-desc">A cycle-accurate Commodore 64 emulator in TypeScript. Apache-2.0.</p>
     </div>
     <nav class="footer-links" aria-label="Footer">
@@ -1336,7 +1340,7 @@
       <a href="architecture.html">Architecture</a>
       <a href="usage.html">Usage</a>
       <a href="showcases.html">Showcases</a>
-      <a href="https://github.com/firatkucuk/f6502" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/repsyio/sea64" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </footer>
 
