@@ -444,8 +444,9 @@ export class VicII implements IoChip {
     if ((d011 ^ this.reg11Delay) & 0x20) {
       const from = this.graphicsAddressFor(this.reg11Delay);
       const to = this.graphicsAddressFor(d011);
-      const isRom = this.mem.isCharRom;
-      if (isRom !== undefined && !isRom(from) && isRom(to)) addr = (from & 0xff) | (to & 0x3f00);
+      const mem = this.mem;
+      if (mem.isCharRom?.(from) === false && mem.isCharRom(to))
+        addr = (from & 0xff) | (to & 0x3f00);
     }
     return addr;
   }
@@ -562,7 +563,6 @@ export class VicII implements IoChip {
       if (mask !== 0) {
         if ((mask & (mask - 1)) !== 0) this.hitSprites(mask);
         if (fg) this.hitBackground(mask);
-        const n = this.spLow[base + i]!;
         if (!(this.spPri[base + i] && fg)) colour = cregs[this.spReg[base + i]!]! & 0x0f;
       }
       if (writeFrame) {
