@@ -5,8 +5,7 @@ import { VicII } from '../../src/machine/vic';
 function world() {
   const ram = new Uint8Array(0x4000);
   const reads: { addr: number; raster: number; cycle: number }[] = [];
-  let vic!: VicII;
-  vic = new VicII({
+  const vic: VicII = new VicII({
     readMem: (a) => {
       reads.push({ addr: a, raster: vic.raster, cycle: vic.debug.cycle });
       return ram[a & 0x3fff]!;
