@@ -46,5 +46,5 @@ jobs:
         with:
           path: website
 
-      - uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v5
         id: deployment
