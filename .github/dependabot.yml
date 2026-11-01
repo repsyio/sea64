@@ -36,3 +36,5 @@ updates:
       # Stay on the Java 25 / Node 24 runtimes; RPS-2408.
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
