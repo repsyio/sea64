@@ -40,7 +40,7 @@ jobs:
       - name: Stage emulator bundle
         run: mkdir -p website/dist && cp dist/f6502.min.js website/dist/
 
-      - uses: actions/configure-pages@v4
+      - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v3
         with:
