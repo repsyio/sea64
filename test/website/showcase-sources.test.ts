@@ -10,8 +10,10 @@ describe('showcase: rainbow-border', () => {
   it('compiles and steps the border through the colours', () => {
     expect(compile(source('rainbow-border')).length).toBeGreaterThan(2);
     const seen = new Set<number>();
+    const c = boot(source('rainbow-border'), 0);
     for (let frames = 10; frames < 400; frames += 10) {
-      seen.add(boot(source('rainbow-border'), frames).peek(0xd020) & 15);
+      for (let f = 0; f < 10; f++) c.runFrame();
+      seen.add(c.peek(0xd020) & 15);
     }
     expect(seen.size).toBeGreaterThan(8);
   });

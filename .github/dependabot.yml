@@ -1,11 +1,11 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "daily"
-      time: "03:40"
-      timezone: "Europe/Amsterdam"
+      interval: 'daily'
+      time: '03:40'
+      timezone: 'Europe/Amsterdam'
     open-pull-requests-limit: 3
     # A new release ages a week before Dependabot proposes it (security updates are not delayed).
     cooldown:
@@ -14,14 +14,14 @@ updates:
     groups:
       minor-and-patch:
         update-types:
-          - "minor"
-          - "patch"
-  - package-ecosystem: "npm"
-    directory: "/"
+          - 'minor'
+          - 'patch'
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
-      time: "03:40"
-      timezone: "Europe/Amsterdam"
+      interval: 'daily'
+      time: '03:40'
+      timezone: 'Europe/Amsterdam'
     open-pull-requests-limit: 3
     # A new release ages a week before Dependabot proposes it (security updates are not delayed).
     cooldown:
@@ -30,9 +30,9 @@ updates:
     groups:
       minor-and-patch:
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
     ignore:
       # Stay on the Java 25 / Node 24 runtimes; RPS-2408.
-      - dependency-name: "@types/node"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
