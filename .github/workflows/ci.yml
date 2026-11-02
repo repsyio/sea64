@@ -5,7 +5,7 @@ on:
 
 jobs:
   check:
-    runs-on: repsy-sm
+    runs-on: repsy-md
     steps:
       - uses: actions/checkout@v7
 
