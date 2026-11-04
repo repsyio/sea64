@@ -43,5 +43,8 @@
   ],
   "sideEffects": false,
   "unpkg": "./dist/f6502.min.js",
-  "jsdelivr": "./dist/f6502.min.js"
+  "jsdelivr": "./dist/f6502.min.js",
+  "overrides": {
+    "minimatch": ">=11.0.1"
+  }
 }
