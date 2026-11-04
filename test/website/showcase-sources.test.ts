@@ -561,7 +561,7 @@ describe('showcase: turbo-sprint', () => {
       for (let f = 0; f < 900 && !crashed(c); f++) c.runFrame();
       expect(crashed(c), `a parked car at X=${parkedX} must face traffic`).toBe(true);
     }
-  }, 15000);
+  });
 
   it('scores passed cars, recycles them into lanes and increases speed up to third gear', () => {
     const c = started();
@@ -609,7 +609,7 @@ describe('showcase: turbo-sprint', () => {
     const before = traffic(c)[sprite]!.y;
     for (let f = 0; f < 5; f++) driveFrame(c);
     expect(traffic(c)[sprite]!.y - before).toBeGreaterThan(initialDistance);
-  }, 15000);
+  });
 
   it('freezes on a crash and requires a fresh SPACE press to reset the race', () => {
     const c = started();
